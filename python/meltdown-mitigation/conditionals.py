@@ -1,11 +1,6 @@
 """ Meltdown Mitigation exercise """
 
 
-from operator import ne
-from os import terminal_size
-from typing import NewType
-
-
 def is_criticality_balanced(temperature, neutrons_emitted):
     """Verify criticality is balanced.
 
@@ -45,12 +40,11 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
 
     if percantage_value >= 80:
         return "green"
-    elif percantage_value >= 60:
+    if percantage_value >= 60:
         return "orange"
-    elif percantage_value >= 30:
+    if percantage_value >= 30:
         return "red"
-    else:
-        return "black"
+    return "black"
 
 
 def fail_safe(temperature, neutrons_produced_per_second, threshold):
@@ -69,7 +63,7 @@ def fail_safe(temperature, neutrons_produced_per_second, threshold):
     neutron_temperature = temperature * neutrons_produced_per_second
     if neutron_temperature < 0.9 * threshold:
         return "LOW"
-    elif 0.9 * threshold < neutron_temperature < 1.1 * threshold:
+    if 0.9 * threshold < neutron_temperature < 1.1 * threshold:
         return "NORMAL"
-    else:
-        return "DANGER"
+
+    return "DANGER"
