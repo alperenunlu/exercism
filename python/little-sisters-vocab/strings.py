@@ -1,9 +1,6 @@
 """Functions for creating, transforming, and adding prefixes to strings."""
 
 
-from curses.ascii import isalpha
-
-
 def add_prefix_un(word):
     """Take the given word and add the 'un' prefix.
 
@@ -27,7 +24,7 @@ def make_word_groups(vocab_words):
     For example: list('en', 'close', 'joy', 'lighten'),
     produces the following string: 'en :: enclose :: enjoy :: enlighten'.
     """
-    return " :: ".join([vocab_words[0]] + [f"{vocab_words[0]}{i}" for i in vocab_words[1:]])
+    return " :: ".join([vocab_words[0]] + [f"{vocab_words[0]}{word}" for word in vocab_words[1:]])
 
 
 def remove_suffix_ness(word):
@@ -42,6 +39,7 @@ def remove_suffix_ness(word):
         if word[:-4].endswith("i"):
             return word[:-5] + "y"
         return word[:-4]
+    return None
 
 
 def adjective_to_verb(sentence, index):
@@ -53,5 +51,5 @@ def adjective_to_verb(sentence, index):
 
     For example, ("It got dark as the sun set", 2) becomes "darken".
     """
-    s = sentence.split(" ")[index] + "en"
-    return ''.join(filter(str.isalpha, s))
+    sen = sentence.split(" ")[index] + "en"
+    return "".join(filter(str.isalpha, sen))
