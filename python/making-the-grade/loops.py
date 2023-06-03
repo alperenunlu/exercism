@@ -8,7 +8,7 @@ def round_scores(student_scores):
     :return: list - student scores *rounded* to nearest integer value.
     """
 
-    pass
+    return [round(score) for score in student_scores]
 
 
 def count_failed_students(student_scores):
@@ -18,7 +18,7 @@ def count_failed_students(student_scores):
     :return: int - count of student scores at or below 40.
     """
 
-    pass
+    return len(list(filter(lambda score: score <= 40, student_scores)))
 
 
 def above_threshold(student_scores, threshold):
@@ -29,7 +29,7 @@ def above_threshold(student_scores, threshold):
     :return: list - of integer scores that are at or above the "best" threshold.
     """
 
-    pass
+    return list(filter(lambda score: score >= threshold, student_scores))
 
 
 def letter_grades(highest):
@@ -46,7 +46,7 @@ def letter_grades(highest):
             86 <= "A" <= 100
     """
 
-    pass
+    return [41 + int((highest - 40) / 4) * i for i in range(4)]
 
 
 def student_ranking(student_scores, student_names):
@@ -57,7 +57,10 @@ def student_ranking(student_scores, student_names):
     :return: list - of strings in format ["<rank>. <student name>: <score>"].
     """
 
-    pass
+    return [
+        f"{i + 1}. {student_names[i]}: {student_scores[i]}"
+        for i in range(len(student_scores))
+    ]
 
 
 def perfect_score(student_info):
@@ -67,4 +70,12 @@ def perfect_score(student_info):
     :return: list - first `[<student name>, 100]` or `[]` if no student score of 100 is found.
     """
 
-    pass
+    return (
+        perfect_student[0]
+        if (
+            perfect_student := [
+                student for student in student_info if student[1] == 100
+            ]
+        )
+        else []
+    )
