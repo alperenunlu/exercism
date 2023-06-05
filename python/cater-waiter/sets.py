@@ -1,13 +1,15 @@
 """Functions for compiling dishes and ingredients for a catering company."""
 
 
-from sets_categories_data import (VEGAN,
-                                  VEGETARIAN,
-                                  KETO,
-                                  PALEO,
-                                  OMNIVORE,
-                                  ALCOHOLS,
-                                  SPECIAL_INGREDIENTS)
+from sets_categories_data import (
+    VEGAN,
+    VEGETARIAN,
+    KETO,
+    PALEO,
+    OMNIVORE,
+    ALCOHOLS,
+    SPECIAL_INGREDIENTS,
+)
 
 
 def clean_ingredients(dish_name, dish_ingredients):
@@ -21,7 +23,7 @@ def clean_ingredients(dish_name, dish_ingredients):
     followed by the de-duped `set` of ingredients as the second item.
     """
 
-    pass
+    return (dish_name, set(dish_ingredients))
 
 
 def check_drinks(drink_name, drink_ingredients):
@@ -36,7 +38,10 @@ def check_drinks(drink_name, drink_ingredients):
 
     """
 
-    pass
+    if set(drink_ingredients) & ALCOHOLS:
+        return drink_name + " " + "Cocktail"
+
+    return drink_name + " " + "Mocktail"
 
 
 def categorize_dish(dish_name, dish_ingredients):
@@ -51,9 +56,22 @@ def categorize_dish(dish_name, dish_ingredients):
     All dishes will "fit" into one of the categories imported from `sets_categories_data.py`
 
     """
+    
+    types = [VEGAN, VEGETARIAN, KETO, PALEO, OMNIVORE]
 
-    pass
+    if dish_ingredients.issubset(VEGAN):
+        meal_type = "VEGAN" 
+    elif dish_ingredients.issubset(VEGETARIAN):
+        meal_type = "VEGETARIAN" 
+    elif dish_ingredients.issubset(KETO):
+        meal_type = "KETO"
+    elif dish_ingredients.issubset(PALEO):
+        meal_type = "PALEO"
+    elif dish_ingredients.issubset(OMNIVORE):
+        meal_type = "OMNIVORE"
 
+    return dish_name + ": " + meal_type
+    
 
 def tag_special_ingredients(dish):
     """Compare `dish` ingredients to `SPECIAL_INGREDIENTS`.
@@ -66,7 +84,9 @@ def tag_special_ingredients(dish):
     SPECIAL_INGREDIENTS constant imported from `sets_categories_data.py`.
     """
 
-    pass
+    dish_name, dish_ingredients = dish
+
+    return (dish_name, set(dish_ingredients) & SPECIAL_INGREDIENTS)
 
 
 def compile_ingredients(dishes):
@@ -78,7 +98,7 @@ def compile_ingredients(dishes):
     This function should return a `set` of all ingredients from all listed dishes.
     """
 
-    pass
+    return set.union(*dishes)
 
 
 def separate_appetizers(dishes, appetizers):
@@ -92,7 +112,7 @@ def separate_appetizers(dishes, appetizers):
     Either list could contain duplicates and may require de-duping.
     """
 
-    pass
+    return list(set(dishes) - set(appetizers))
 
 
 def singleton_ingredients(dishes, intersection):
@@ -110,4 +130,4 @@ def singleton_ingredients(dishes, intersection):
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    pass
+    return set.union(*dishes) - intersection
