@@ -57,6 +57,8 @@ def categorize_dish(dish_name, dish_ingredients):
 
     """
 
+    meal_type = None
+
     if dish_ingredients.issubset(VEGAN):
         meal_type = "VEGAN"
     elif dish_ingredients.issubset(VEGETARIAN):
